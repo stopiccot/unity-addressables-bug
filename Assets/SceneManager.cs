@@ -8,11 +8,17 @@ public class SceneManager : MonoBehaviour
     public List<SceneDeclaration> scenes;
 
     public static SceneManager Instance { get; protected set; }
+    protected static int counter = 0;
+    protected int n = 0;
 
     void Start()
     {
+        counter++;
+        n = counter;
+
         if (Instance != null)
         {
+            Debug.Log($"DESTROYING SceneManager {n} {counter}");
             Destroy(gameObject);
             return;
         }
@@ -23,7 +29,7 @@ public class SceneManager : MonoBehaviour
 
     void Update()
     {
-        var text = "[";
+        var text = $"{n} {counter} [";
         foreach (var s in scenes)
         {
             text = text + ((s != null) ? s.Name : "null") + ",";
